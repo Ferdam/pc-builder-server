@@ -53,7 +53,7 @@ async function runServer() {
             console.log('server started');
         });
     } finally {
-        await client.close();
+        // await client.close();
     }
 }
 runServer();
