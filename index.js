@@ -15,8 +15,11 @@ app.use(express.urlencoded({ extended: true}));
 async function runServer() {
     try {
         await client.connect();
-        await client.db("pcbuilding").command({ ping: 1 });
+        database = client.db("pcbuilding");
+        await database.command({ ping: 1 });
         console.log("Connected successfully to server");
+        
+        collection = database.collection("saved")
 
         app.post('/putSaved', (req, res) => {
             console.log(req.body);
