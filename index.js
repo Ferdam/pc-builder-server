@@ -28,6 +28,10 @@ async function runServer() {
             });
         });
         
+        app.get('/', async (req, res) => {
+            res.send('<h1>server</h1>');
+        });
+
         app.get('/getSaved', async (req, res) => {
             let docid = req.query.docid;
             let jsonFile;
