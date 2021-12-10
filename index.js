@@ -22,7 +22,7 @@ async function runServer() {
         await database.command({ ping: 1 });
         console.log("Connected successfully to server");
         
-        collection = database.collection("saved")
+        collection = database.collection("saved");
 
         app.post('/putSaved', (req, res) => {
             // res.set('Access-Control-Allow-Origin', '*');
@@ -48,7 +48,7 @@ async function runServer() {
             res.header('Access-Control-Allow-Origin', '*');
             let jsonFile;
             try {
-                jsonFile = await collection.find({});
+                jsonFile = await collection.find({}).toArray();
             }
             catch (ex) {
                 jsonFile = { error: 'something went wrong' };
