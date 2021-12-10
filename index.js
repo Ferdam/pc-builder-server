@@ -27,7 +27,7 @@ async function runServer() {
         app.post('/putSaved', (req, res) => {
             // res.set('Access-Control-Allow-Origin', '*');
             // res.header('Access-Control-Allow-Origin', '*');
-            res.header('Content-Type', 'json');
+            // res.header('Content-Type', 'json');
             res.header('Access-Control-Allow-Origin', '*');
             console.log(req.body);
             collection.insertOne(req.body, (err, result) => { 
@@ -38,13 +38,13 @@ async function runServer() {
         });
         
         app.get('/', async (req, res) => {
-            res.header('Content-Type', 'json');
+            // res.header('Content-Type', 'json');
             res.header('Access-Control-Allow-Origin', '*');
             res.send('<h1>server</h1>');
         });
 
         app.get('/getAllSaved', async (req, res) => {
-            res.header('Content-Type', 'json');
+            // res.header('Content-Type', 'json');
             res.header('Access-Control-Allow-Origin', '*');
             let jsonFile;
             try {
@@ -57,7 +57,7 @@ async function runServer() {
         });
 
         app.get('/getSaved', async (req, res) => {
-            res.header('Content-Type', 'json');
+            // res.header('Content-Type', 'json');
             res.header('Access-Control-Allow-Origin', '*');
             let docid = req.query.docid;
             let jsonFile;
