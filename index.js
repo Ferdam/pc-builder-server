@@ -25,10 +25,12 @@ async function runServer() {
         collection = database.collection("saved")
 
         app.post('/putSaved', (req, res) => {
+            res.set('Content-Type', 'json');
+            res.set('Access-Control-Allow-Origin', '*');
             console.log(req.body);
             collection.insertOne(req.body, (err, result) => { 
                 if (err) return console.log(err);
-                // res.send(result);
+                res.send(result);
                 return result;
             });
         });
