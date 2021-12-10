@@ -1,6 +1,7 @@
 const express = require('express');
 const serverless = require('serverless-http');
 const fs = require('fs');
+var cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 const { MongoClient } = require('mongodb');
@@ -10,6 +11,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 let collection = null;
 let database = null;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
