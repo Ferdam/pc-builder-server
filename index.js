@@ -25,8 +25,10 @@ async function runServer() {
         collection = database.collection("saved")
 
         app.post('/putSaved', (req, res) => {
-            res.set('Content-Type', 'json');
-            res.set('Access-Control-Allow-Origin', '*');
+            // res.set('Access-Control-Allow-Origin', '*');
+            // res.header('Access-Control-Allow-Origin', '*');
+            res.header('Content-Type', 'json');
+            res.header('Access-Control-Allow-Origin', '*');
             console.log(req.body);
             collection.insertOne(req.body, (err, result) => { 
                 if (err) return console.log(err);
@@ -36,10 +38,27 @@ async function runServer() {
         });
         
         app.get('/', async (req, res) => {
+            res.header('Content-Type', 'json');
+            res.header('Access-Control-Allow-Origin', '*');
             res.send('<h1>server</h1>');
         });
 
+        app.get('/getAllSaved', async (req, res) => {
+            res.header('Content-Type', 'json');
+            res.header('Access-Control-Allow-Origin', '*');
+            let jsonFile;
+            try {
+                jsonFile = await collection.find({});
+            }
+            catch (ex) {
+                jsonFile = { error: 'something went wrong' };
+            }
+            res.send( jsonFile );
+        });
+
         app.get('/getSaved', async (req, res) => {
+            res.header('Content-Type', 'json');
+            res.header('Access-Control-Allow-Origin', '*');
             let docid = req.query.docid;
             let jsonFile;
             try {
@@ -48,6 +67,7 @@ async function runServer() {
             catch (ex) {
                 jsonFile = { error: 'something went wrong' };
             }
+            
             res.send( jsonFile );
         });
         
@@ -59,11 +79,3 @@ async function runServer() {
     }
 }
 runServer();
-
-// client.connect(err => {
-//     if (err) return console.log(err);
-//     database = client.db("pcbuilding");
-//     collection = database.collection("saved");
-//     client.close();
-// });
-
