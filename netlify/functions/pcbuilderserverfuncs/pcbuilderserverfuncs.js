@@ -10,6 +10,8 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 const collection;
 const database;
 
+const router = express.Router();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -20,25 +22,25 @@ async function runSetup() {
         await database.command({ ping: 1 });
         console.log("Connected successfully to server");
 
-        collection = database.collection("saved")
+        collection = database.collection("saved");
     } catch {
         await client.close();
     }
 }
 runSetup();
 
-app.post('/putSaved', (req, res) => {
+router.post('/putSaved', (req, res) => {
     console.log(req.body);
     collection.insertOne(req.body, (err, result) => { 
         if (err) return console.log(err);
     });
 });
 
-app.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     res.send('<h1>server</h1>');
 });
 
-app.get('/getSaved', async (req, res) => {
+router.get('/getSaved', async (req, res) => {
     let docid = req.query.docid;
     let jsonFile;
     try {
@@ -50,9 +52,11 @@ app.get('/getSaved', async (req, res) => {
     res.send( jsonFile );
 });
 
-app.listen(port, () => {
-    console.log('server started');
-});
+// app.listen(port, () => {
+//     console.log('server started');
+// });
+app.use('/api', router);  // path must route to lambda
+app.use('/', (req, res) => res.send('<h1>server</h1>'));
 
 const handler = serverless(app);
 
