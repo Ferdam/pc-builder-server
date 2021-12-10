@@ -59,8 +59,7 @@ app.use('/api', router);  // path must route to lambda
 app.use('/', (req, res) => res.send('<h1>server</h1>'));
 
 const handler = serverless(app);
-
-module.exports = { handler }
+module.exports.handler = serverless(app);
 // client.connect(err => {
 //     if (err) return console.log(err);
 //     database = client.db("pcbuilding");
