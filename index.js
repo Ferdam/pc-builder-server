@@ -7,8 +7,8 @@ const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://ferdam:wdplcm11@pcbuilder.xki6y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const collection;
-const database;
+let collection = null;
+let database = null;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
