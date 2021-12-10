@@ -2,7 +2,7 @@ const express = require('express');
 const serverless = require('serverless-http');
 const fs = require('fs');
 const app = express();
-const port = 3110;
+const port = process.env.PORT || 5000;
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://ferdam:wdplcm11@pcbuilder.xki6y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
