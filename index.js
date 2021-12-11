@@ -62,7 +62,7 @@ async function runServer() {
             let docid = req.query.docid;
             let jsonFile;
             try {
-                jsonFile = collection.findOne({ _id: docid })
+                jsonFile = await collection.findOne({ _id: docid })
             }
             catch (ex) {
                 jsonFile = { error: 'something went wrong' };
